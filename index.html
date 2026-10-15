@@ -1,0 +1,577 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5eddf">
+<title>20 — My Little Time Capsule</title>
+<style>
+:root{--cream:#f5eddf;--paper:#fffaf1;--green:#29443a;--sage:#7f927d;--clay:#aa7059;--rose:#c99589;--brown:#735849;--blue:#78a9c8;--ink:#302b27}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:radial-gradient(#806e60 1px,transparent 1px);background-size:20px 20px}
+button,input{font:inherit}
+.hide{display:none!important}
+a{color:inherit}
+#gate{min-height:100vh;display:grid;place-items:center;padding:20px}
+.room{width:min(1050px,100%);min-height:720px;position:relative;overflow:hidden;border:2px solid #d8cbb9;border-radius:42px;background:#fffaf0d9;box-shadow:0 22px 60px #49382a22}
+.tape{position:absolute;width:130px;height:34px;background:#d7c3a0b8;top:24px;left:70px;transform:rotate(-7deg)}
+.tape.r{left:auto;right:70px;transform:rotate(7deg)}
+.doodle{position:absolute;font-size:30px;color:var(--clay);animation:float 4s ease-in-out infinite}
+.d1{left:7%;top:18%}.d2{right:8%;top:29%;animation-delay:1s}.d3{left:13%;bottom:14%;animation-delay:2s}.d4{right:14%;bottom:11%;animation-delay:.5s}
+@keyframes float{50%{transform:translateY(-11px) rotate(7deg)}}
+.center{text-align:center;max-width:760px;margin:auto;padding:100px 24px 55px}
+.tiny{font:12px Arial;letter-spacing:.18em;text-transform:uppercase;color:var(--sage)}
+h1{font-size:clamp(55px,10vw,105px);line-height:.88;margin:22px 0;color:var(--green)}
+h2{color:var(--green);font-size:clamp(34px,6vw,58px);text-align:center;margin:0 0 20px}
+.subtitle{font-size:clamp(18px,3vw,27px);line-height:1.55}
+.toys{display:flex;justify-content:center;gap:24px;font-size:62px;margin:35px 0}
+.toy{cursor:pointer;display:inline-block;transition:.2s}
+.toy:hover{transform:translateY(-9px) rotate(-8deg)}
+.choice{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:22px}
+.btn{border:0;border-radius:999px;padding:14px 23px;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 7px 0 #1c3028;transition:.16s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #1c3028}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.alt{background:var(--clay);box-shadow:0 7px 0 #7f4d3b}
+.btn.paper{background:var(--paper);color:var(--green);border:1px solid #d7cbbb;box-shadow:0 7px 0 #d2c3b1}
+.scroll-note{font:13px Arial;color:#766b63}
+#main{display:none}
+.main{max-width:1050px;margin:auto;padding:30px 18px 100px}
+.section{margin:55px 0;padding:40px 20px}
+.paper{background:#fffaf1d9;border:1px solid #dfd1bf;border-radius:30px;box-shadow:0 13px 38px #46382a12}
+.intro{text-align:center;padding:65px 25px 35px}
+.lead{max-width:770px;margin:0 auto 28px;text-align:center;font-size:19px;line-height:1.8}
+.story{max-width:800px;margin:auto;font-size:19px;line-height:1.85}
+.story p{margin:20px 0}
+.story strong{color:var(--clay)}
+.lang{color:var(--green);font-style:italic}
+.code{display:block;max-width:720px;margin:23px auto;padding:20px;background:#22342b;color:#eee6d9;border-radius:18px;font:14px/1.7 "Courier New",monospace;white-space:pre-wrap;box-shadow:inset 0 0 0 1px #52685c}
+.joke{text-align:center;font:14px Arial;color:#876150}
+.counterBox{text-align:center;padding:38px}
+.tenk{font-size:clamp(50px,10vw,100px);font-weight:bold;color:var(--clay)}
+.counter{font:14px Arial;color:#766a61}
+.milestones{display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:28px;padding:28px 5px}
+.achievement{width:min(290px,88vw);min-height:205px;padding:27px 22px 23px;background:var(--paper);border:0;border-radius:8px;cursor:pointer;box-shadow:0 13px 25px #49382a22;transition:.25s;position:relative;color:var(--ink);font-family:Georgia,serif;text-align:center}
+.achievement:before{content:"";position:absolute;top:-8px;left:50%;width:75px;height:22px;background:#d8c4a2aa;transform:translateX(-50%) rotate(-2deg);pointer-events:none}
+.achievement:nth-child(1){transform:rotate(-3deg)}
+.achievement:nth-child(2){transform:rotate(2.5deg);background:#f6e9df}
+.achievement:nth-child(3){transform:rotate(-1deg);background:#eef0e5}
+.achievement:hover{transform:translateY(-8px) rotate(0deg);z-index:3}
+.icon{font-size:48px}
+.achievement h3{color:var(--green);margin:8px 0;font-size:22px}
+.achievement p{font:14px/1.6 Arial;color:#6f645c}
+.achievement .tap{font:10px Arial;text-transform:uppercase;letter-spacing:.12em;color:#a36f5b}
+.project-links{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:15px;position:relative;z-index:2}
+.project-links a{display:inline-block;padding:7px 10px;border:1px solid #d8cbb9;border-radius:999px;background:#fffaf1;color:var(--green);font:12px Arial;text-decoration:none;transition:.2s}
+.project-links a:hover{background:var(--green);color:#fff;transform:translateY(-2px)}
+.memory-row{display:flex;gap:24px;overflow-x:auto;padding:40px 18px 35px;scroll-snap-type:x mandatory;cursor:grab;scrollbar-color:#b8aa99 transparent}
+.memory-row::-webkit-scrollbar{height:9px}
+.memory-row::-webkit-scrollbar-thumb{background:#b8aa99;border-radius:20px}
+.photo{flex:0 0 270px;height:360px;scroll-snap-align:center;background:#fff;padding:14px 14px 54px;box-shadow:0 13px 25px #3d30251e;transform:rotate(-2deg);position:relative}
+.photo:nth-child(2n){transform:rotate(2deg)}
+.photo:nth-child(3n){transform:rotate(-1deg)}
+.pic{height:285px;border-radius:7px;background:linear-gradient(145deg,#e8ded0,#c9d4c5);overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:cover;border-radius:7px;display:block}
+.caption{position:absolute;left:18px;bottom:16px;font-size:15px}
+.voice{text-align:center;padding:35px}
+.voice audio{width:min(600px,100%)}
+.final{text-align:center;padding:50px 10px}
+.thanks{max-width:720px;margin:auto;font-size:20px;line-height:1.8}
+.bearWelcome{line-height:1;filter:drop-shadow(0 12px 12px #49382a20);animation:bearBob 2.6s ease-in-out infinite}
+.bearWelcome img{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto;border-radius:20px}
+.bearWelcome span{display:block;font-size:18px;font-family:Arial,sans-serif;color:var(--clay);margin-top:8px;line-height:1.4}
+@keyframes bearBob{50%{transform:translateY(-10px) rotate(2deg)}}
+.letter{background:#f1e6d4;border:1px dashed #b9a48a;padding:28px;border-radius:18px;text-align:left;box-shadow:inset 0 0 30px #9d805520}
+.letter p{margin:15px 0}
+.letter .signature{text-align:right;font-weight:bold;color:var(--green)}
+.modalBg{position:fixed;z-index:100;inset:0;background:#27312b70;backdrop-filter:blur(4px);display:none;place-items:center;padding:20px;overflow-y:auto}
+.modal{width:min(570px,100%);max-height:90vh;overflow-y:auto;background:var(--paper);border-radius:30px;padding:35px;text-align:center;box-shadow:0 25px 70px #15120f40;position:relative;animation:pop .25s ease}
+.modal.shake{animation:shake .42s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-7px)}80%{transform:translateX(5px)}}
+@keyframes pop{from{transform:scale(.8) rotate(-2deg);opacity:0}to{transform:scale(1);opacity:1}}
+.close{position:absolute;right:14px;top:10px;border:0;background:none;font-size:26px;color:#6d5d51;cursor:pointer}
+.flower{font-size:66px}
+.modal h3{color:var(--green);font-size:29px}
+.modal p{font-size:17px;line-height:1.7}
+.password input{padding:13px;border-radius:14px;border:1px solid #cdbfae;width:180px;text-align:center}
+.error{min-height:22px;color:var(--clay);font:13px Arial}
+.float{position:fixed;z-index:110;pointer-events:none;font-size:29px;animation:rise 3.2s linear forwards}
+@keyframes rise{to{transform:translateY(-240px) rotate(180deg);opacity:0}}
+
+/* Blue cake image and interactive birthday puzzle */
+.cakeSection{padding-top:35px;padding-bottom:60px}
+.cakePaper{max-width:650px;margin:0 auto;padding:35px 18px 30px;text-align:center;background:var(--paper);border:1px solid #dfd1bc;border-radius:4px;box-shadow:5px 7px 0 #29443a12;position:relative;overflow:hidden}
+.cakeEyebrow{color:var(--clay);font-size:11px;letter-spacing:3px;font-weight:bold}
+.cakePaper h2{font-size:clamp(27px,5vw,38px);font-weight:normal;margin:12px 0}
+.cakeIntro{max-width:340px;margin:0 auto;color:#766b5e;font-size:14px;line-height:1.7}
+.cakeImageWrap{position:relative;width:min(500px,90vw);margin:28px auto 15px;isolation:isolate}
+.realCake{display:block;width:100%;height:auto;max-height:430px;object-fit:contain;filter:drop-shadow(0 15px 15px #30485822)}
+.cakeDigits{position:absolute;z-index:3;left:0;right:0;top:43%;display:flex;align-items:center;justify-content:center;gap:clamp(4px,2vw,12px);pointer-events:none}
+.cakeDigit{pointer-events:auto;border:0;background:transparent;color:white;font:bold clamp(38px,9vw,72px) Georgia,serif;text-shadow:0 3px 5px #304858aa;padding:0 5px;cursor:pointer;transition:transform .2s,opacity .2s}
+.cakeDigit:hover{transform:translateY(-5px) scale(1.08)}
+.cakeDigit.selected{outline:2px dashed white;border-radius:12px;background:#ffffff35}
+.cakeDigit.gone{visibility:hidden;pointer-events:none}
+.cakeCandles{position:absolute;z-index:4;left:0;right:0;top:9%;display:flex;justify-content:center;gap:clamp(28px,8vw,65px);pointer-events:none}
+.cakeCandle{position:relative;width:13px;height:45px;border-radius:5px;background:repeating-linear-gradient(135deg,#f7edda 0 7px,#e4a9a0 7px 12px);box-shadow:0 2px 4px #49382a22}
+.cakeFlame{position:absolute;top:-21px;left:2px;width:10px;height:17px;background:#e4a34e;border-radius:60% 40% 60% 40%;box-shadow:0 0 14px #e4a34e88;animation:flicker .45s infinite alternate}
+@keyframes flicker{to{transform:scale(1.25) rotate(7deg);opacity:.7}}
+.cakeCandle.out .cakeFlame{display:none}
+.cakeInstruction{min-height:25px;color:var(--green);font-size:14px;line-height:1.6;margin:12px auto 20px}
+.cakeBlowButton{border:1px solid var(--green);border-radius:3px;background:var(--green);color:var(--paper);padding:12px 22px;font-size:13px;cursor:pointer;transition:opacity .2s,transform .2s}
+.cakeBlowButton:hover:not(:disabled){transform:translateY(-2px)}
+.cakeBlowButton:disabled{opacity:.4;cursor:not-allowed}
+.cakeWish{min-height:25px;color:var(--clay);font-size:18px;font-style:italic;margin:18px auto 0}
+.langFloat{display:inline-block;animation:letterFloat 2.2s ease-in-out infinite}
+.langFloat:nth-child(2){animation-delay:.2s}.langFloat:nth-child(3){animation-delay:.4s}.langFloat:nth-child(4){animation-delay:.6s}
+@keyframes letterFloat{50%{transform:translateY(-7px) rotate(-1deg);text-shadow:0 5px 15px #a66f5740}}
+@media(max-width:600px){
+ .room{min-height:680px;border-radius:28px}
+ .center{padding-top:78px}
+ .toys{font-size:48px}
+ .section{padding:30px 8px}
+ .photo{flex-basis:240px;height:325px}
+ .pic{height:250px}
+ .achievement{width:min(290px,88vw)}
+ .milestones{gap:28px}
+ .bearWelcome img{width:125px;height:125px}
+ .modal{padding:30px 20px}
+ .cakePaper{padding:28px 10px}
+ .cakeImageWrap{width:min(440px,94vw)}
+ .cakeCandles{top:8%;gap:clamp(24px,7vw,40px)}
+ .cakeCandle{height:36px;width:10px}
+ .cakeDigits{top:43%;gap:5px}
+ .cakeDigit{font-size:clamp(34px,10vw,56px)}
+}
+</style>
+</head>
+<body>
+
+<header id="gate">
+<div class="room">
+<div class="tape"></div><div class="tape r"></div>
+<div class="doodle d1">✦</div><div class="doodle d2">♡</div><div class="doodle d3">✿</div><div class="doodle d4">✧</div>
+<div class="center">
+<div class="tiny">PRIVATE MEMORY BOX • 2006 → 20</div>
+<h1>19 was a lot.</h1>
+<div class="subtitle">Before 20 walks in…<br>let's make 19 sit down and explain itself. 😭</div>
+<div class="toys">
+<span class="toy" onclick="toy('teddy')">🧸</span>
+<span class="toy" onclick="toy('flower')">🌷</span>
+<span class="toy" onclick="toy('puzzle')">🧩</span>
+<span class="toy" onclick="toy('wand')">🪄</span>
+</div>
+<div class="subtitle" style="font-size:17px">Okay girl… are you ready to enter the memory box?</div>
+<div class="choice">
+<button class="btn alt" onclick="returnTo19()">Return me to 19</button>
+<button class="btn paper" id="send20">Send me to 20</button>
+</div>
+<div class="choice"><button class="btn" onclick="openGate()">Open it. 👀🔐</button></div>
+<div class="scroll-note">No time machine. No cheating. 20 is waiting at the cake. 🎂</div>
+</div>
+</div>
+</header>
+
+<main id="main">
+<div class="main">
+
+<section class="intro paper">
+<div class="tiny">WELCOME BACK, GIRL</div>
+<div class="bearWelcome toy" onclick="toy('welcome')">
+<img src="bear1.jpg" alt="A little bear">
+<span>tap the bear… she has something to say 👀</span>
+</div>
+<h2 style="font-size:clamp(42px,8vw,80px)">A little world I kept for me.</h2>
+<p class="lead">Not a portfolio. Not a traditional birthday page. Just a tiny chaotic memory box for the girl who survived 19, built things anyway, laughed at bugs, changed languages mid-sentence, and somehow reached 20.</p>
+<button class="btn" onclick="toy('welcome')">Let the bear talk 🧸</button>
+</section>
+
+<section class="section paper">
+<h2>Before 19… there was 17.</h2>
+<div class="story">
+<p>I was learning Turkish by whispering. <span class="lang">Fısıltıyla başladım.</span> Literally. Quiet girl, tiny voice, giant dream. Çok mantıklı. 😂</p>
+<p>I didn't know that a quiet little language journey would become <strong>Language Whispers</strong>. I just knew I wanted to speak a language that once felt impossible. <span class="lang">O zamanlar çok korkmuştum ama yine de devam ettim.</span></p>
+<pre class="code">const me = {
+  age: 17,
+  confidence: 2,
+  Turkish: "loading...",
+  dream: "???"
+};
+
+while (!thereYet) {
+  learn();
+  whisper();
+  tryAgain();
+}</pre>
+<p class="joke">Very professional strategy. Would not recommend. 😂 <span class="lang">Ama işe yaradı.</span></p>
+<p>Then 18 came. I built Language Whispers. My first fee was <strong>300 birr</strong>. Three hundred. 😭 <span class="lang">Üç yüz lira değil, üç yüz birr. Ama kalbimde milyon gibiydi.</span></p>
+<p>Someone had actually trusted something I built. <span class="lang">Ben yaptım.</span> And suddenly the whisper had a little microphone.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>Then 19 happened.</h2>
+<div class="story paper" style="padding:30px">
+<p>I had dreamed of becoming a doctor for years. I prepared for it. Then I failed the Ethiopian entrance exam.</p>
+<pre class="code">404: DREAM NOT FOUND
+
+expected: "doctor"
+received: "??????"
+
+system: please remain calm
+me: absolutely not 😭</pre>
+<p>I felt alone. I felt like I had lost myself. I was assigned to an Axum University remedial programme, but I couldn't make myself go back and start again. My brain basically said: <span class="lang">“non merci.”</span> 😭</p>
+<p class="lang">O zamanlar çok korkmuştum. Gerçekten.</p>
+<p>At 17 I had told myself, “If I fall, my dream will get me back up.” But when I actually fell, getting back up was not automatic. Turns out motivational quotes do not physically pick you up from the floor. Who knew? 😂</p>
+<p class="lang">Je ne savais plus quoi faire de moi.</p>
+<p>And still… <span class="lang">j'ai continué.</span> Not elegantly. Not with a five-year plan. Just… one tiny step. <span class="lang">Bir adım daha.</span></p>
+<pre class="code">if (lifeFallsApart) {
+    breathe();
+    cry();
+    laughAtTheSituation();
+    buildAgain();
+}</pre>
+</div>
+</section>
+
+<section class="section paper">
+<h2>College? Character development. 😭</h2>
+<div class="story">
+<p>I looked at nursing, IT, tour guide college… my brain opened 47 tabs and forgot which one was playing music. <span class="lang">Ne yapacağım ben?</span> 😂</p>
+<p>I joined the tour guide programme, paid the fee, and then realized: <strong>this isn't me.</strong> <span class="lang">Bu ben değilim.</span></p>
+<p>Leaving was hard. But staying somewhere only because I was afraid to leave felt worse. <span class="lang">Kendime ihanet etmek istemedim.</span> I didn't have the perfect answer; I just knew that pretending was not the answer.</p>
+<p class="joke">Me choosing a career: “This looks reasonable.”<br>Me five minutes later: “Who authorized this decision?” 😂<br><span class="lang">Moi: “Bon… on recommence.”</span></p>
+</div>
+</section>
+
+<section class="section">
+<h2>The first 10K.</h2>
+<div class="paper counterBox">
+<div class="tenk" id="tenk">0 birr</div>
+<div class="counter">tap the receipt</div>
+<button class="btn alt" onclick="count10k()">I remember this one.</button>
+<p class="story" style="margin-top:25px">My first <strong>10,000 birr</strong>. It had felt impossible. Then there it was.</p>
+<p class="lang">“Attends… c'est vraiment à moi?”</p>
+<p>I used my own money to pay college fees. I bought clothes and shoes. Ordinary things, maybe. But to me they were proof that I could create something and earn from it.</p>
+</div>
+</section>
+
+<section class="section paper">
+<h2>The laptop chapter.</h2>
+<div class="story">
+<p>I waited a long time for that laptop. Buying it was hard. My brother helped with the purchase, and that day became one of those days I will remember. I had sacrificed a lot of my own happiness just to get there. <span class="lang">Kendimi yeniden ayağa kaldırmak zorundaydım.</span></p>
+<p>I didn't just buy a laptop. I bought a door. <span class="lang">Bir kapı açtım.</span> And yes, I stared at it like: “Okay… now what?” 😂</p>
+<pre class="code">new Laptop();
+
+install("hope");
+install("HTML");
+install("CSS");
+install("JavaScript");
+install("Python");
+
+console.log("okay... let's build something.");</pre>
+<p>Then I started programming. And apparently one project was not enough. 😭</p>
+<p>Language Whispers. The café project. NURIVA. Debugging. More debugging. Debugging the debugging.</p>
+<p class="joke">The story didn't end. It just changed programming languages. 😂</p>
+</div>
+</section>
+
+<section class="section paper">
+<h2>So… what did 19 look like?</h2>
+<p class="lead">Drag the memory film sideways and revisit a few little moments. 👀</p>
+<div class="memory-row">
+<div class="photo"><div class="pic"><img src="sumi3.jpg" alt="A memory from age 19, photo one" loading="lazy"></div><div class="caption">19 • entering the plot</div></div>
+<div class="photo"><div class="pic"><img src="sumi2.jpg" alt="A memory from age 19, photo two" loading="lazy"></div><div class="caption">trying to understand life</div></div>
+<div class="photo"><div class="pic"><img src="sumi1.jpg" alt="The laptop chapter" loading="lazy"></div><div class="caption">the laptop day 💻</div></div>
+<div class="photo"><div class="pic"><img src="sumi4.jpg" alt="A Language Whispers memory" loading="lazy"></div><div class="caption">Language Whispers</div></div>
+<div class="photo"><div class="pic"><img src="sumi5.jpg" alt="A memory of building something" loading="lazy"></div><div class="caption">building anyway</div></div>
+<div class="photo"><div class="pic"><img src="sumi6.jpg" alt="One of the good days" loading="lazy"></div><div class="caption">one of the good days</div></div>
+</div>
+</section>
+
+<section class="section achievementsEnd">
+<div class="tiny">LOOK WHAT YOU DID, GIRL.</div>
+<h2>Okay… 19 actually built a lot. 😭</h2>
+<p class="lead">These are not boring achievement boxes. They are little keepsakes. Tap one and let it talk back.</p>
+<div class="milestones">
+
+<div class="achievement" onclick="toy('lw')">
+<div class="icon"></div><h3>Language Whispers</h3>
+<p>I started you at 17, when I was learning Turkish and didn't yet know how far a whisper could travel. At 18, I gave you a name and began teaching.</p>
+<div class="tap">tap the leaf</div>
+<div class="project-links">
+<a href="https://nurivahq.github.io/language-whispers-test/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Turkish placement test ↗</a>
+<a href="https://practice-woad-seven.vercel.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Practice site ↗</a>
+<a href="https://certificate-io5d.vercel.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Certificate project ↗</a>
+</div>
+</div>
+
+<div class="achievement" onclick="toy('cafe')">
+<div class="icon"></div><h3>The Café Project</h3>
+<p>This project is still growing. I don't need to pretend it is finished to be proud that I started building it.</p>
+<div class="tap">tap the cup</div>
+<div class="project-links"><a href="https://nuriva.onrender.com/cafe" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Café page ↗</a></div>
+</div>
+
+<div class="achievement" onclick="toy('nuriva')">
+<div class="icon"></div><h3>NURIVA</h3>
+<p>You became more than an idea. You became a system I tried to build with my own hands, through errors, confusing problems, and moments when I felt too tired to continue.</p>
+<div class="tap">tap the plant</div>
+<div class="project-links">
+<a href="https://nuriva.onrender.com/manager" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Manager ↗</a>
+<a href="https://nuriva.onrender.com/kitchen" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Kitchen ↗</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>19, thank you.</h2>
+<div class="story paper" style="padding:35px">
+<p>Thank you for being difficult. 😂 <span class="lang">Gerçekten çok ayıp ettin.</span></p>
+<p>Thank you for the fear, the broken plans, the confusion, and the paths I walked away from. <span class="lang">Bazen ne yaptığımı bilmiyordum.</span> <span class="lang">Je ne savais plus quoi faire de moi.</span></p>
+<p>Thank you for the first 10K. For the laptop. For the tiny wins nobody saw. For every lesson and every bug that made me question my entire existence. <span class="lang">Bug bile bazen hayat dersi verdi. Çok komik.</span> 😂</p>
+<p>And thank you for not making me someone else just because the first dream didn't happen. <span class="lang">Ben hâlâ benim.</span> Maybe the route changed. <span class="lang">Ama yol bitmedi.</span></p>
+<p class="lang">Kendimi yeniden ayağa kaldırmak zorundaydım.</p>
+<p class="lang">Mais j'ai continué.</p>
+<p>19 didn't fix everything. It taught me how to keep building while things are unfinished. <span class="lang">Tamamlanmadım. Ama devam ediyorum.</span></p>
+<pre class="code">const age20 = {
+  notPerfect: true,
+  stillLearning: true,
+  stillDreaming: true,
+  stillBuilding: true,
+  languages: ["English", "Türkçe", "Français", "code"]
+};
+
+if (lifeGetsWeird) {
+  breathe();
+  laugh();
+  continue();
+}
+
+// çünkü hikâye devam ediyor.
+// parce que je continue.
+// çünkü daha bitmedi. 😌</pre>
+</div>
+</section>
+
+<section class="section final">
+<div class="tiny">ONE LAST THING</div>
+<h2>Thank you, me.</h2>
+<div class="thanks">
+<p>I know how long it took to get here.</p>
+<p>I know the girl who was scared. The girl who whispered. The girl who failed. The girl who didn't know what to choose.</p>
+<p>And I know the girl who kept going anyway.</p>
+<p><strong>Thank you for carrying me here.</strong> 🤍</p>
+</div>
+<button class="btn alt" onclick="blossom(25)">Give me flowers 🌷</button>
+</section>
+
+<section class="section paper">
+<div class="tiny">OPEN WHEN YOU FORGET WHO YOU ARE</div>
+<h2>Dear future me…</h2>
+<div class="letter">
+<p>So we… somehow survived all that. 😭</p>
+<p>Hi girl. If you're reading this, first of all: <strong>look at you.</strong> You made it past 20. <span class="lang">Tebrikler kızım.</span> 🎉</p>
+<p>I hope you're laughing right now because I am writing this with absolutely no idea what your life looks like. <span class="lang">Je n'ai aucune idée de ce que tu es devenue.</span> Maybe you're building something huge. Maybe you're learning another language because apparently three was not enough. 😂</p>
+<p>Please remember the girl who whispered Turkish because she was too shy to speak loudly. <span class="lang">Fısıltıyla başladım.</span> Remember the girl who failed a dream she thought was her whole identity and thought, for a while, that everything was over.</p>
+<p>Remember the 10K. The college fees. The shoes. The laptop. The nights of debugging when the computer was basically saying, <code>404: patience not found</code>. 😂</p>
+<p>Remember how hard it was to buy that laptop. Remember that you didn't magically become brave. You just kept moving while being scared. <span class="lang">Korkuyordum ama devam ettim.</span></p>
+<p>If you're rich, successful and dramatic now, please stay humble. 😭 If you're still figuring things out, <span class="lang">sakin ol.</span> You were never supposed to have the entire map at 20.</p>
+<p>And if you ever feel like you're late, read this sentence twice:</p>
+<p class="lang" style="font-size:23px;text-align:center"><strong>J'ai continué.</strong><br><strong>Devam ettim.</strong><br><strong>I kept going.</strong></p>
+<p>Don't become so busy becoming “future me” that you forget to be grateful for “this me.” She fought for you.</p>
+<p>Now go drink water, fix your posture, open your laptop, and build something. 😂</p>
+<p class="signature">Love,<br>you — at 19, almost 20. 🤍</p>
+</div>
+</section>
+
+
+<section class="section" style="text-align:center">
+<div class="tiny">END OF THIS CHAPTER</div>
+<h2>20 = new chapter;</h2>
+<p class="lead">Not finished. Not perfect. Just… continued.</p>
+<button class="btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Run it again ↺</button>
+</section>
+
+</div>
+</main>
+
+<div class="modalBg" id="modalBg" onclick="if(event.target===this)closeModal()">
+<div class="modal" id="modal"></div>
+</div>
+
+<script>
+const gate=document.getElementById('gate');
+const main=document.getElementById('main');
+const bg=document.getElementById('modalBg');
+const modal=document.getElementById('modal');
+
+function showModal(content){
+  modal.innerHTML=content;
+  bg.style.display='grid';
+}
+function closeModal(){bg.style.display='none'}
+
+const data={
+  teddy:['🧸','The teddy says…','You made it to 20. Please stop pretending 19 was normal. 😂'],
+  flower:['🌷','A flower for you','For the girl who kept growing even when she had no idea what season she was in.'],
+  puzzle:['🧩','One piece at a time','You kept trying to solve a life that refused to come with instructions. Rude, honestly. 😭'],
+  wand:['🪄','Tiny magic','No magic spell. Just you doing the next thing again and again.'],
+  welcome:['🧸','WELCOME, GIRL.','The bear says: “Come here. You made it.” 🥹 You survived 19, built things, learned languages, made money, lost plans, found new ones… and still showed up. <span class="lang">Hoş geldin kızım.</span> Now sit down. We have memories to gossip about. 😂'],
+  lw:['','Language Whispers','I started you at 17, when I was learning Turkish and didn’t yet know how far a whisper could travel. At 18, I gave you a name and began teaching. I haven’t finished the whole world I imagined for you. But unfinished doesn’t mean forgotten. You were one of the first places where I discovered what I could build. I’m not saying goodbye. I’m leaving your story open.'],
+  cafe:['','The Café Project','This project is still growing. I don’t need to pretend it is finished to be proud that I started building it. There is still work ahead of me, and I’m allowed to be proud of how far I’ve come before the final version exists.'],
+  nuriva:['','NURIVA','You became more than an idea. You became a system I tried to build with my own hands, through errors, confusing problems, and moments when I felt too tired to continue. You’re not finished yet. Neither is the person building you. This isn’t the end of your story.'],
+  languages:['🌍','My voices','English for the story. Türkçe for the heart. Français for the challenge. Code for the chaos.'],
+  tenk:['🌷','That first 10K','You looked at 10,000 birr and basically went: “Wait… I did that?” Then you used your own money for college. That was not a small thing. 🌷'],
+  girl:['🌷','She brought flowers.','She says: “Happy birthday.” Then she gives you flowers and walks away like she knew you needed them. 🤍']
+};
+
+function toy(key){
+  const item=data[key]||data.teddy;
+  showModal(`<button class="close" onclick="closeModal()" aria-label="Close">×</button><div class="flower">${item[0]}</div><h3>${item[1]}</h3><p>${item[2]}</p><button class="btn" onclick="closeModal()">keep it 💌</button>`);
+  blossom(8);
+}
+
+function returnTo19(){
+  showModal(`<button class="close" onclick="closeModal()">×</button><div class="flower">🧸</div><h3>Nice try. 😂</h3><p>19 already left the room.</p><p>You can visit her, laugh with her, cry with her, take her memories… but you can't <em>live</em> her again.</p><p><span class="lang">Onu ziyaret edebilirsin ama geri dönemezsin.</span></p><button class="btn" onclick="closeModal();openGate()">Fine. Let me visit her. 👀</button>`);
+  blossom(7);
+}
+
+document.getElementById('send20').onclick=()=>{
+  showModal(`<button class="close" onclick="closeModal()">×</button><div class="flower">🎂</div><h3>20? Already? Girl, relax. 😭</h3><p>20 is waiting at the cake.</p><p>You can't skip the memories just because the cake looks good.</p><p><span class="lang">Önce anılar. Sonra pasta.</span><br><span class="lang">D'abord les souvenirs. Ensuite le gâteau.</span></p><button class="btn alt" onclick="closeModal();openGate()">Okay okay… show me 19. 😂</button>`);
+  blossom(7);
+};
+
+function openGate(){
+  showModal(`<button class="close" onclick="closeModal()">×</button><div class="flower">🔐🧸</div><h3>You should know the password. 👀</h3><p>Not a complicated one. Not a secret code.<br>Just the year that started your story.</p><div class="password"><input id="pw" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="____" aria-label="Password"><br><br><button class="btn alt" onclick="checkPw()">Open the box 🔓</button><div class="error" id="err"></div></div>`);
+  setTimeout(()=>{
+    const input=document.getElementById('pw');
+    if(input){input.focus();input.addEventListener('keydown',event=>{if(event.key==='Enter')checkPw()})}
+  },50);
+}
+
+function checkPw(){
+  const input=document.getElementById('pw');
+  if(!input)return;
+  if(input.value==='2006'){
+    closeModal();gate.style.display='none';main.style.display='block';window.scrollTo(0,0);
+    setTimeout(()=>toy('welcome'),450);blossom(25);
+  }else{
+    const error=document.getElementById('err');
+    if(error)error.innerHTML='Oh no. 😭 You should know it, girl. Come onnn.<br><span class="lang">Kızım, bunu biliyorsun.</span>';
+    modal.classList.remove('shake');void modal.offsetWidth;modal.classList.add('shake');
+    input.animate([{transform:'translateX(-9px)'},{transform:'translateX(9px)'},{transform:'translateX(-7px)'},{transform:'translateX(0)'}],360);
+  }
+}
+
+let counterTimer=null;
+function count10k(){
+  const element=document.getElementById('tenk');
+  if(counterTimer)clearInterval(counterTimer);
+  let number=0;element.textContent='0 birr';
+  counterTimer=setInterval(()=>{
+    number+=250;
+    if(number>=10000){number=10000;clearInterval(counterTimer);counterTimer=null;blossom(12)}
+    element.textContent=number.toLocaleString()+' birr';
+  },25);
+}
+
+function blossom(count=15){
+  for(let i=0;i<count;i++){
+    const flower=document.createElement('div');
+    flower.className='float';
+    flower.textContent=['🌷','✿','♡','✦','🌼'][Math.floor(Math.random()*5)];
+    flower.style.left=(8+Math.random()*84)+'vw';
+    flower.style.bottom=(5+Math.random()*25)+'vh';
+    flower.style.animationDelay=(Math.random()*.7)+'s';
+    document.body.appendChild(flower);
+    setTimeout(()=>flower.remove(),3500);
+  }
+}
+
+/* Cake puzzle: remove 1 and 9, leaving 20. */
+let selectedCakeDigits=[];
+let cakePuzzleSolved=false;
+let cakeCandlesBlown=false;
+let wrongChoiceTimer=null;
+
+function selectCakeDigit(number,button){
+  if(cakePuzzleSolved||cakeCandlesBlown)return;
+  const message=document.getElementById('cakeMessage');
+
+  if(selectedCakeDigits.includes(number)){
+    selectedCakeDigits=selectedCakeDigits.filter(n=>n!==number);
+    button.classList.remove('selected');
+    message.textContent='Choose 1 and 9 to leave 20. 💙';
+    return;
+  }
+
+  if(selectedCakeDigits.length>=2)return;
+  selectedCakeDigits.push(number);
+  button.classList.add('selected');
+
+  if(selectedCakeDigits.length===1){
+    message.textContent='Choose one more number. 👀';
+    return;
+  }
+
+  if(selectedCakeDigits.includes(1)&&selectedCakeDigits.includes(9)){
+    cakePuzzleSolved=true;
+    document.querySelectorAll('.cakeDigit').forEach(digit=>{
+      const value=Number(digit.dataset.digit);
+      digit.classList.remove('selected');
+      if(value===1||value===9)digit.classList.add('gone');
+      digit.disabled=true;
+    });
+    selectedCakeDigits=[];
+    document.getElementById('blowButton').disabled=false;
+    message.textContent='You left 20. Now make your birthday wish. 💙';
+    document.getElementById('cakeWish').textContent='Your candles are still lit. Make a wish, then blow them out.';
+    blossom(12);
+  }else{
+    message.textContent='Oops, you lost 19 already. You better choose 20';
+    if(wrongChoiceTimer)clearTimeout(wrongChoiceTimer);
+    wrongChoiceTimer=setTimeout(()=>{
+      selectedCakeDigits=[];
+      document.querySelectorAll('.cakeDigit').forEach(digit=>digit.classList.remove('selected'));
+      message.textContent='Choose 1 and 9 to leave 20. 💙';
+    },1700);
+  }
+}
+
+function resetMyCake(){
+  if(wrongChoiceTimer){clearTimeout(wrongChoiceTimer);wrongChoiceTimer=null}
+  selectedCakeDigits=[];
+  cakePuzzleSolved=false;
+  cakeCandlesBlown=false;
+  document.querySelectorAll('.cakeDigit').forEach(digit=>{
+    digit.classList.remove('selected','gone');
+    digit.disabled=false;
+  });
+  document.querySelectorAll('.cakeCandle').forEach(candle=>candle.classList.remove('out'));
+  document.getElementById('blowButton').disabled=true;
+  document.getElementById('cakeMessage').textContent='Choose 1 and 9 to leave 20. 💙';
+  document.getElementById('cakeWish').textContent='Make a wish, girl. You have come so far.';
+}
+
+function blowMyCandles(){
+  if(!cakePuzzleSolved||cakeCandlesBlown)return;
+  cakeCandlesBlown=true;
+  document.querySelectorAll('.cakeCandle').forEach(candle=>candle.classList.add('out'));
+  document.getElementById('blowButton').disabled=true;
+  document.getElementById('cakeMessage').textContent='The candles are off. You did it. 🎂🤍';
+  document.getElementById('cakeWish').textContent='I made these years count. Here’s to the next chapter. 🤍';
+  blossom(45);
+
+  setTimeout(()=>{
+    showModal(`<button class="close" onclick="closeModal()" aria-label="Close">×</button><div class="flower">🎂💙✨</div><h3 style="font-size:34px">Okay… hello, 20.</h3><p style="font-size:22px;line-height:1.9"><span class="langFloat">Happy birthday 🎈</span><br><span class="langFloat">Mutlu yıllar 🎈</span><br><span class="langFloat">Joyeux anniversaire 🎈</span><br><span class="langFloat">መልካም ልደት 🎈</span></p><p><strong>İyi ki doğdun, yirmi yaşım.</strong></p><p><span class="lang">J'ai continué. Devam ettim. I kept going.</span></p><button class="btn alt" onclick="closeModal()">I'm 20. 🥹💙</button>`);
+    blossom(28);
+  },400);
+}
+</script>
+</body>
+</html>
